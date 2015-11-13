@@ -1,11 +1,11 @@
 {
-	"name": "noise-control",
-	"title": "Noise Control",
-	"id": "jid1-hUBct1DNfZQIeQ@jetpack",
-	"description": "Shows an icon in the tab of each tab currently playing an HTML5 video or audio.",
+	"name": "noise-control-sidebar",
+	"title": "Noise Control Sidebar",
+	"description": "Adds a sidebar to control the noise.",
 	"author": "Geoff Lankow",
+	"contributors": ["def00111"],
 	"license": "MPL 2.0",
-	"version": "16",
+	"version": "18",
 	"main": "lib/main.js",
 	"preferences": [
 		{
