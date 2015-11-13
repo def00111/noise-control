@@ -1,26 +1,40 @@
 /* globals addon */
-let windowsList = document.getElementById("windows");
+let tabsList = document.getElementById("tabs");
 let tabTemplate = document.getElementById("tab").content;
 
-tabTemplate.querySelector("span.mutelabel").textContent =
-  " " + document.querySelector('[data-l10n-id="mute.label"]').textContent;
-
-addon.port.on("everything", function(windows) {
-	windowsList.innerHTML = "";
-	for (let tabs of windows) {
-		let windowItem = document.createElement("li");
-		let tabsList = document.createElement("ul");
-		for (let tab of tabs) {
-      let listItem = tabTemplate.cloneNode(true).firstElementChild;
-      listItem.setAttribute("id", tab.id);
-			listItem.querySelector("input[type=\"checkbox\"]").onclick = onMuteClick;
-			updateTab(listItem, tab);
-			tabsList.appendChild(listItem);
-		}
-		windowItem.appendChild(tabsList);
-		windowsList.appendChild(windowItem);
+addon.port.on("everything", function(tabs) {
+  tabTemplate.querySelector("span.mutelabel").textContent =
+    " " + document.querySelector('[data-l10n-id="mute.label"]').textContent;
+  
+	tabsList.innerHTML = "";
+	for (let tab of tabs) {
+		tabsList.appendChild(createListItem(tab));
 	}
 });
+
+addon.port.on("tabchanged", function(tab) {
+	let listItem = document.getElementById(tab.id);
+	if (listItem) {
+	  updateTab(listItem, tab);
+	}
+	else {
+	  tabsList.appendChild(createListItem(tab));
+	}
+});
+
+addon.port.on("tabremoved", function(tab) {
+	let listItem = document.getElementById(tab.id);
+	if (listItem)
+	  listItem.parentNode.removeChild(listItem);
+});
+
+function createListItem(tab) {
+  let listItem = tabTemplate.cloneNode(true).firstElementChild;
+  listItem.setAttribute("id", tab.id);
+	listItem.querySelector("input[type=\"checkbox\"]").onclick = onMuteClick;
+	updateTab(listItem, tab);
+	return listItem;
+}
 
 function getListItem(element) {
 	let listItem = element.parentNode;

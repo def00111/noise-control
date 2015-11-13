@@ -9,10 +9,16 @@
 	"main": "lib/main.js",
 	"preferences": [
 		{
-			"name": "indicator.colour",
-			"title": "Indicator Colour",
-			"type": "color",
-			"value": "currentcolor"
+      "name": "modifiers", 
+      "title": "Modifiers", 
+      "type": "string", 
+      "value": "accel,alt"
+		},
+		{
+		  "name": "key", 
+      "title": "Key", 
+      "type": "string", 
+      "value": "n"
 		}
 	]
 }
